@@ -21,6 +21,19 @@ class WeatherModel {
     return data;
   }
 
+  Future<dynamic> getCityWeather(String cityName) async {
+//    Location location = await Location().geoLocation();
+//    print(location.latitude.toString() + ',' + location.longitude.toString());
+//    lat = location.latitude;
+//    lon = location.longitude;
+
+    NetworkHelper networkHelper =
+        NetworkHelper('$URL?q=$cityName&appid=$API_KEY&units=metric');
+
+    var data = await networkHelper.getData();
+    return data;
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';

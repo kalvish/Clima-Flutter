@@ -106,8 +106,8 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -115,6 +115,13 @@ class _LocationScreenState extends State<LocationScreen> {
                           },
                         ),
                       );
+
+                      print(result);
+                      if (result != null) {
+                        var weatherData =
+                            await weatherModel.getCityWeather(result);
+                        updateUi(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
@@ -152,4 +159,24 @@ class _LocationScreenState extends State<LocationScreen> {
       ),
     );
   }
+
+//  void _navigateAndPushCityScreen() async {
+//    final result = await Navigator.push(
+//      context,
+//      MaterialPageRoute(
+//        builder: (context) {
+//          return CityScreen();
+//        },
+//      ),
+//    );
+//
+//    print(result);
+//    Scaffold.of(context)
+//      ..removeCurrentSnackBar()
+//      ..showSnackBar(
+//        SnackBar(
+//          content: Text('$result'),
+//        ),
+//      );
+//  }
 }
